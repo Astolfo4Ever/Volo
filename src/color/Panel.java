@@ -29,6 +29,8 @@ class Panel extends JPanel{
         setFocusable(true);
         img = newImage();
         img2 = BluredImage();
+        betterAsciiArt();
+        System.out.println("");
         asciiArt();
     }
     
@@ -118,4 +120,24 @@ class Panel extends JPanel{
             System.out.println("");
         }
     }
+    
+    public void betterAsciiArt() throws IOException{
+        BufferedImage img = ImageIO.read(getClass().getResource("Volo.jpg"));
+        int imgWidth = img.getWidth(), imgHeight= img.getHeight();
+        String str = "@MW%#BR$NmDEHQg&Sw689GOPZbdpq5KU4aehCXk23FVnouTszLy7Y[]x=?ftv()1c{|}j*+/<>I\\^lr!_\"~;',-:´.";
+        for (int y = 0; y < imgHeight; y++) {
+            for (int x = 0; x < imgWidth; x++) {
+                int argb = img.getRGB(x, y);
+                
+                int r = (argb>>16)& 255;
+                int g = (argb>>8)& 255;
+                int b = (argb>>0)& 255;
+                int avg = (str.length()-1) * (r+g+b)/(3*255);
+                if ( avg<45){ System.out.print(str.charAt(avg));
+                } else { System.out.print("_");}
+            }
+            System.out.println("");
+        }
+    }
+    
     }
